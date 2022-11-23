@@ -1,2 +1,3 @@
-# guideseq_ibis
-Guide-seq analysis pipeline
+# GUIDEseq IBIS
+
+GUIDE-seq analysis pipeline
