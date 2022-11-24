@@ -1,5 +1,6 @@
 *~
 *.gz
+00_archive/*
 03_genome/*
 04_data/*
 05_trimmed/*
