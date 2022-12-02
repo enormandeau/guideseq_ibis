@@ -1,5 +1,8 @@
-*~
+*.bam
 *.gz
+*.sam
+*data
+*~
 00_archive/*
 03_genome/*
 04_data/*
