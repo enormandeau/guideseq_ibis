@@ -40,5 +40,13 @@ then
 fi
 
 # Trim and clean reads
-echo -e "\nBARQUE: Trimming and filtering reads"
+echo -e "\nGUIDEseq IBIS: Trimming and filtering reads\n"
 ./01_scripts/01_trim.sh "$NCPUS" "$MIN_LENGTH" "$CROP_LENGTH"
+
+# Extract reads, filter and annotate
+echo -e "\nGUIDEseq IBIS: Extracting filtering, and annotating reads\n"
+./01_scripts/02_extract.sh "$NCPUS" "$MIN_LENGTH"
+
+# Map fasta reads to genome
+echo -e "\nGUIDEseq IBIS: Mapping fasta reads to genome\n"
+./01_scripts/03_map.sh "$NCPUS" "$GENOME_FILE"
