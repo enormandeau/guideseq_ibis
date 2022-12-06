@@ -1,5 +1,6 @@
 *.bam
 *.gz
+*.png
 *.sam
 *data
 *~
@@ -7,5 +8,8 @@
 03_genome/*
 04_data/*
 05_trimmed/*
+06_extracted/*
+07_aligned/*
+08_deduplicated/*
 99_logfiles/*
 human*.csv

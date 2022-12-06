@@ -9,7 +9,7 @@ GENOME_FILE="$2"
 GENOME_FOLDER="03_genome"
 EXTRACTED_FOLDER="06_extracted"
 
-# Parallelize on all raw data files
+# Parallelize on all data files
 ls -1 -S "$EXTRACTED_FOLDER"/*.fasta.gz |
     perl -pe 's/\.fasta\.gz//' |
     parallel -k -j 1 ./01_scripts/util/map_one_file.sh {} "$NCPUS" "$GENOME_FILE"

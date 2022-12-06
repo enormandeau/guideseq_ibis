@@ -50,3 +50,7 @@ echo -e "\nGUIDEseq IBIS: Extracting filtering, and annotating reads\n"
 # Map fasta reads to genome
 echo -e "\nGUIDEseq IBIS: Mapping fasta reads to genome\n"
 ./01_scripts/03_map.sh "$NCPUS" "$GENOME_FILE"
+
+# Remove PCR duplicates
+echo -e "\nGUIDEseq IBIS: Removing PCR duplicates\n"
+./01_scripts/04_deduplicate.sh "$NCPUS"
