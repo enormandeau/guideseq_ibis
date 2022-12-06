@@ -54,3 +54,7 @@ echo -e "\nGUIDEseq IBIS: Mapping fasta reads to genome\n"
 # Remove PCR duplicates
 echo -e "\nGUIDEseq IBIS: Removing PCR duplicates\n"
 ./01_scripts/04_deduplicate.sh "$NCPUS"
+
+# Find Double Stranded Breaks (DSBs)
+echo -e "\nGUIDEseq IBIS: Find Double Stranded Breaks (DSBs)\n"
+./01_scripts/05_dsb.sh "$NCPUS"

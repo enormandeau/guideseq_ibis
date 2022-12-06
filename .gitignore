@@ -11,5 +11,6 @@
 06_extracted/*
 07_aligned/*
 08_deduplicated/*
+09_sites/*
 99_logfiles/*
 human*.csv
