@@ -6,6 +6,7 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
+- Start version system (only with tags on GitHub, no vx.y.z in text?)
 - Permit differences in alien and dsODN sequences
 - Remove reads with multiple dsODN
 - Compress samfiles if big (to `.sam.gz`, not `.bam`)
