@@ -19,7 +19,7 @@ except:
     sys.exit(1)
 
 # Find DSBs
-min_cov = 30
+min_cov = 20
 window_size = 10
 
 #TODO Load value from config_file
@@ -55,8 +55,8 @@ for site in sorted_coverages:
 
     for p in range(pos-window_size, pos+window_size+1):
         visited.add((chrom, p))
-        if (chrom, p) in coverages:
 
+        if (chrom, p) in coverages:
             sites[(chrom, pos)] += coverages.pop((chrom, p), 0)
 
 # Get DSB duets: pairs of sites with good coverages at ~100 bp one from each other
@@ -72,6 +72,8 @@ with open(output_file, "wt") as outfile:
         count = sites[s]
         sites.pop(s)
 
+        # TODO Accept only positions close to the wanted distance
+        # as opposted to smaller than or equal to a max distance
         for p in range(pos-neighbour_size, pos+neighbour_size+1):
             _id = (s[0], p)
 
