@@ -6,15 +6,18 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
-- Start version system (only with tags on GitHub, no vx.y.z in text?)
-- Permit differences in alien and dsODN sequences
-- Remove reads with multiple dsODN
-- Compress samfiles if big (to `.sam.gz`, not `.bam`)
-- Permit errors in UMI+SEQ+POS when deduplicating?
+* Remove reads with multiple dsODN
+* Annotates DSBs with nearest gene and distance
+* Improve `validate_project.sh`
+
 - Test different params for DBS identification
-- Annotates DSBs with nearest gene and distance
-- Process files from biggest to smallest with parallel (to reduce time) or in
+- Permit errors in UMI+SEQ+POS when deduplicating?
+  - UMI+SEQ is risky, but maybe ±2 for POS?
+
+? Start version system (only with tags on GitHub, no vx.y.z in text?)
+? Process files from biggest to smallest with parallel (to reduce time) or in
   version-sort order (more logical for step reports)?
+? Compress samfiles if big (to `.sam.gz`, not `.bam`)?
 
 ## Description
 

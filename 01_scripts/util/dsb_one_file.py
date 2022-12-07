@@ -19,8 +19,10 @@ except:
     sys.exit(1)
 
 # Find DSBs
-min_cov = 20
-window_size = 20
+min_cov = 30
+window_size = 10
+
+#TODO Load value from config_file
 neighbour_size = 200
 coverages = defaultdict(int)
 data = [x.strip().split("\t") for x in open(input_file).readlines()]

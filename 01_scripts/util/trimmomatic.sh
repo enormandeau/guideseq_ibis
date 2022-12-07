@@ -8,7 +8,6 @@ BASE=$(basename $1)
 MIN_HIT_LENGTH=$2
 CROP_LENGTH=$3
 TRIMMOMATIC_JAR="01_scripts/util/trimmomatic-0.36.jar"
-ADAPTERFILE="02_info/illumina_adapters.fas"
 DATA_FOLDER="04_data"
 TRIMMED_FOLDER="05_trimmed"
 

@@ -79,6 +79,32 @@ def fastq_iterator(infile):
             qual = f.readline().strip()
             yield Fastq(name, seq, name2, qual)
 
+def pass_hamming(query, target, max_dist):
+    """Determine if query and target have a Hamming distance below or at max_diff
+    """
+    assert len(target) >= len(query), "Target must be longer than query"
+
+    # Query or a truncated version is in target, stop searching
+    trim_left = query[max_dist:]
+    trim_right = query[:-max_dist]
+
+    if query in target or trim_left in target or trim_right in target:
+        return True
+
+    # Test for number of differences in a sliding window
+    for i in range(len(target) - len(query) + 1):
+        target_sub = target[i: len(query)+i]
+
+        dist = 0
+        for k, v in enumerate(query):
+            if target_sub[k] != v:
+                dist += 1
+
+        if dist <= max_dist:
+            return True
+
+    return False
+
 # Expected machinery
 ## Read 1
 umi = ""
@@ -90,7 +116,6 @@ odn_minus = "TTGAGTTGTCATATGTTAATAACGGTAT"
 
 # Misc
 n = 0
-odn_len = 0
 num_kept = 0
 num_flushed = 0
 
@@ -116,16 +141,15 @@ for pair in zip(fq1, fq2):
     assert names[0] == names[1], f"\n\nGUIDEseq IBIS: Sequences in fastq files are not synced\
 \n\n{fqz1}: {names[0]}\n{fqz2}: {names[1]}"
 
-    # TODO permit diffs in ALIEN and dsODN
-    # TODO filter if ALIEN or dsODN found more than once
+    # Permit 1 difference between alien sequence and match at expected position
+    if pass_hamming(alien, s1.sequence[7:8+len(alien)+1], 1):
 
-    if alien in s1.sequence[8:24]:
-
-        if odn_plus in s2.sequence[:len(odn_plus) + 1]:
+        # TODO filter reads with more than one dsODN
+        if pass_hamming(odn_plus, s2.sequence[:len(odn_plus)+2], 5):
             num_kept += 1
             odn_len = len(odn_plus)
 
-        elif odn_minus in s2.sequence[:len(odn_minus) + 1]:
+        elif pass_hamming(odn_minus, s2.sequence[:len(odn_minus)+2], 5):
             num_kept += 1
             odn_len = len(odn_minus)
 
@@ -140,7 +164,7 @@ for pair in zip(fq1, fq2):
     if keep:
         umi = s1.sequence[:8]
         first8 = s1.sequence[24:32]
-        sequence = s2.sequence[odn_len+1: ]
+        sequence = s2.sequence[odn_len: ]
 
         if len(sequence) < trim_length:
             num_kept -= 1
