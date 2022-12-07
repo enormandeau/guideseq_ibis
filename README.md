@@ -6,8 +6,14 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
-- Filter better (remove reads with multiple dsODN...)
+- Permit differences in alien and dsODN sequences
+- Remove reads with multiple dsODN
+- Compress samfiles if big (to `.sam.gz`, not `.bam`)
+- Permit errors in UMI+SEQ+POS when deduplicating?
+- Test different params for DBS identification
 - Annotates DSBs with nearest gene and distance
+- Process files from biggest to smallest with parallel (to reduce time) or in
+  version-sort order (more logical for step reports)?
 
 ## Description
 

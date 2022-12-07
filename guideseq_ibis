@@ -15,7 +15,7 @@ exec > >(tee "$LOG_FOLDER"/"$TIMESTAMP"_guideseq_ibis_run.log) 2>&1
 
 print_logo () {
     echo ""
-    echo "GUIDEseq IBIS pipeline"
+    echo "GUIDE-seq IBIS pipeline"
 }
 
 print_logo
@@ -28,7 +28,7 @@ then
     #cp "$INFO_FILE" "$LOG_FOLDER"/"$TIMESTAMP"_$(basename "$INFO_FILE")
 
 else
-    echo -e "\nGUIDEseq IBIS: Config file does not exist or is empty."
+    echo -e "\nGUIDE-seq IBIS: Config file does not exist or is empty."
     echo -e "        Please specify a valid config file."
     exit 1
 fi
@@ -40,21 +40,21 @@ then
 fi
 
 # Trim and clean reads
-echo -e "\nGUIDEseq IBIS: Trimming and filtering reads\n"
+echo -e "\nGUIDE-seq IBIS: Trimming and filtering reads\n"
 ./01_scripts/01_trim.sh "$NCPUS" "$MIN_LENGTH" "$CROP_LENGTH"
 
 # Extract reads, filter and annotate
-echo -e "\nGUIDEseq IBIS: Extracting filtering, and annotating reads\n"
+echo -e "\nGUIDE-seq IBIS: Extracting, filtering, and annotating reads\n"
 ./01_scripts/02_extract.sh "$NCPUS" "$MIN_LENGTH"
 
 # Map fasta reads to genome
-echo -e "\nGUIDEseq IBIS: Mapping fasta reads to genome\n"
+echo -e "\nGUIDE-seq IBIS: Mapping fasta reads to genome\n"
 ./01_scripts/03_map.sh "$NCPUS" "$GENOME_FILE"
 
 # Remove PCR duplicates
-echo -e "\nGUIDEseq IBIS: Removing PCR duplicates\n"
+echo -e "\nGUIDE-seq IBIS: Removing PCR duplicates\n"
 ./01_scripts/04_deduplicate.sh "$NCPUS"
 
 # Find Double Stranded Breaks (DSBs)
-echo -e "\nGUIDEseq IBIS: Find Double Stranded Breaks (DSBs)\n"
+echo -e "\nGUIDE-seq IBIS: Find Double Stranded Breaks (DSBs)\n"
 ./01_scripts/05_dsb.sh "$NCPUS"

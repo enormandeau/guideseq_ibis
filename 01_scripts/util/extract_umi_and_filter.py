@@ -116,28 +116,24 @@ for pair in zip(fq1, fq2):
     assert names[0] == names[1], f"\n\nGUIDEseq IBIS: Sequences in fastq files are not synced\
 \n\n{fqz1}: {names[0]}\n{fqz2}: {names[1]}"
 
-    # TODO filter if ALIEN or dsODN found more than once
     # TODO permit diffs in ALIEN and dsODN
+    # TODO filter if ALIEN or dsODN found more than once
 
     if alien in s1.sequence[8:24]:
-        #print("Alien found")
+
         if odn_plus in s2.sequence[:len(odn_plus) + 1]:
-            #print("odn+ found")
             num_kept += 1
             odn_len = len(odn_plus)
 
         elif odn_minus in s2.sequence[:len(odn_minus) + 1]:
-            #print("odn- found")
             num_kept += 1
             odn_len = len(odn_minus)
 
         else:
-            #print("odn not found")
             num_flushed += 1
             keep = False
 
     else:
-        #print("Alien not found")
         num_flushed += 1
         keep = False
 
@@ -147,7 +143,6 @@ for pair in zip(fq1, fq2):
         sequence = s2.sequence[odn_len+1: ]
 
         if len(sequence) < trim_length:
-            #print("seq too short")
             num_kept -= 1
             continue
 
@@ -157,4 +152,4 @@ for pair in zip(fq1, fq2):
         s.write_to_file(outfile)
 
 percentage = round((100 * num_kept) / (num_kept + num_flushed), 2)
-print(f"Retained {percentage}% ({num_kept} / {num_kept + num_flushed})")
+print(f"Retained {percentage}% ({num_kept} / {num_kept + num_flushed}) for {fqz1.split('/')[1].split('_')[0]}")

@@ -21,7 +21,7 @@ except:
 data = [x.strip().split("\t") for x in open(input_file)]
 data = sorted([(x[2], x[3], "_".join(x[0].split("_")[1:]), x[9]) for x in data])
 
-# TODO Permit errors
+# TODO Permit errors in UMI+SEQ+POS ?
 deduplicated = sorted(list(set(data)))
 
 print(f"{input_file} has {len(deduplicated)} ({round(100*len(deduplicated) / len(data), 2)}%) unique reads.")

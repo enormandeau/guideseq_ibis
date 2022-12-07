@@ -34,8 +34,8 @@ sorted_coverages = sorted([(x[1], x[0]) for x in coverages.items()], reverse=Tru
 # Get site with higest coverage
 # Aggregate all the counts withing `window_size` bp on each side
 # Remove site and neighbours from `coverages`
-# Count this as a potential site
-# Go down the list until you hit a site with less than `min_cov` reads
+# Count this as a potential site and go down the list until you hit
+# a site with less than `min_cov` reads
 sites = {}
 visited = set()
 
@@ -51,18 +51,16 @@ for site in sorted_coverages:
 
     sites[(chrom, pos)] = 0
 
-    #print("--")
-
     for p in range(pos-window_size, pos+window_size+1):
         visited.add((chrom, p))
         if (chrom, p) in coverages:
 
-            #print(sites[(chrom, pos)])
             sites[(chrom, pos)] += coverages.pop((chrom, p), 0)
 
 # Get DSB duets: pairs of sites with good coverages at ~100 bp one from each other
 duets = 0
 sample = input_file.split("/")[1].split("_")[0]
+num_sites = 0
 
 with open(output_file, "wt") as outfile:
     outfile.write("Sample\tChrom\tSite1\tSite2\tDistance\tCount1\tCount2\n")
@@ -74,5 +72,9 @@ with open(output_file, "wt") as outfile:
 
         for p in range(pos-neighbour_size, pos+neighbour_size+1):
             _id = (s[0], p)
+
             if _id in sites:
+                num_sites += 1
                 outfile.write("\t".join([str(x) for x in [sample, s[0], s[1], _id[1], _id[1] - s[1], count, sites[_id]]]) + "\n")
+
+    print(f"Found {num_sites} sites for {input_file.split('/')[1].split('_')[0]}")
