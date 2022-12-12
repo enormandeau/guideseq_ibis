@@ -66,7 +66,7 @@ def fastq_iterator(infile):
 
     Requires fastq file with four lines per sequence and no blank lines.
     """
-    
+
     with myopen(infile) as f:
         while True:
             name = f.readline().strip()
@@ -144,12 +144,19 @@ for pair in zip(fq1, fq2):
     # Permit 1 difference between alien sequence and match at expected position
     if pass_hamming(alien, s1.sequence[7:8+len(alien)+1], 1):
 
-        # TODO filter reads with more than one dsODN
-        if pass_hamming(odn_plus, s2.sequence[:len(odn_plus)+2], 5):
+        if pass_hamming(odn_plus, s2.sequence[:len(odn_plus)+2], 6):
+            # Filter reads with more than one dsODN
+            if odn_plus[2: -2] in s2.sequence[len(odn_plus):]:
+                continue
+
             num_kept += 1
             odn_len = len(odn_plus)
 
-        elif pass_hamming(odn_minus, s2.sequence[:len(odn_minus)+2], 5):
+        elif pass_hamming(odn_minus, s2.sequence[:len(odn_minus)+2], 6):
+            # Filter reads with more than one dsODN
+            if odn_minus[2: -2] in s2.sequence[len(odn_minus):]:
+                continue
+
             num_kept += 1
             odn_len = len(odn_minus)
 

@@ -20,9 +20,9 @@ java -XX:ParallelGCThreads=1 -cp "$TRIMMOMATIC_JAR" org.usadellab.trimmomatic.Tr
     "$TRIMMED_FOLDER"/"$BASE"R1_001.single.fastq.gz \
     "$TRIMMED_FOLDER"/"$BASE"R2_001.fastq.gz \
     "$TRIMMED_FOLDER"/"$BASE"R2_001.single.fastq.gz \
-    LEADING:20 \
-    TRAILING:20 \
-    SLIDINGWINDOW:20:20 \
+    LEADING:25 \
+    TRAILING:25 \
+    SLIDINGWINDOW:25:25 \
     MINLEN:"$MIN_HIT_LENGTH" \
     CROP:"$CROP_LENGTH"
 

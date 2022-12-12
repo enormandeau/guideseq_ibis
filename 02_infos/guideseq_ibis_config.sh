@@ -9,6 +9,6 @@
 NCPUS=40                    # Number of CPUs to use. A lot of the steps are parallelized (int, 1+)
 
 MIN_LENGTH=100              # Length to trim sequences (int, 50+)
-CROP_LENGTH=300             # Cut reads to this length after filtering (int, 100+)
+CROP_LENGTH=200             # Cut reads to this length after filtering (int, 100+)
 
 GENOME_FILE="genome.fasta"  # Name of genome file in 03_genome folder

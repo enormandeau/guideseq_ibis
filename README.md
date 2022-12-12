@@ -6,13 +6,9 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
-* Remove reads with multiple dsODN
-* Annotates DSBs with nearest gene and distance
-* Improve `validate_project.sh`
+* Modify `validate_project.sh`
 
-- Test different params for DBS identification
-- Permit errors in UMI+SEQ+POS when deduplicating?
-  - UMI+SEQ is risky, but maybe ±2 for POS?
+- .. Test different params for DBS identification
 
 ? Start version system (only with tags on GitHub, no vx.y.z in text?)
 ? Process files from biggest to smallest with parallel (to reduce time) or in

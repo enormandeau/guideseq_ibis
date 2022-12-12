@@ -13,7 +13,8 @@ import sys
 # Parse input
 try:
     input_file = sys.argv[1]
-    output_file = sys.argv[2]
+    fragment_length = int(sys.argv[2])
+    output_file = sys.argv[3]
 except:
     print(__doc__)
     sys.exit(1)
@@ -22,8 +23,24 @@ except:
 min_cov = 20
 window_size = 10
 
-#TODO Load value from config_file
-neighbour_size = 200
+# Load gene annotation file
+genes = [x.strip().split("\t") for x in
+        open("00_archive/human_GRCh38.p14_genes_simplified.tsv").readlines()]
+
+genes_dict = defaultdict(lambda: defaultdict(list))
+bin_size = 10000
+
+for g in genes:
+    if g[0] == ("#Name"):
+        continue
+
+    chrom, _from, _to, gene = g[1], int(g[2]), int(g[3]), g[6]
+
+    bins = range(_from // bin_size, (_to // bin_size)+1)
+
+    for b in bins:
+        genes_dict[chrom][b].append((_from, _to, gene))
+
 coverages = defaultdict(int)
 data = [x.strip().split("\t") for x in open(input_file).readlines()]
 
@@ -65,20 +82,43 @@ sample = input_file.split("/")[1].split("_")[0]
 num_sites = 0
 
 with open(output_file, "wt") as outfile:
-    outfile.write("Sample\tChrom\tSite1\tSite2\tDistance\tCount1\tCount2\n")
+    outfile.write("0Sample\tChromosome\tSite1\tSite2\tDist\tCnt1\tCnt2\tRatio\tGene\n")
 
     for s in sorted(sites):
         chrom, pos = s
         count = sites[s]
         sites.pop(s)
 
-        # TODO Accept only positions close to the wanted distance
-        # as opposted to smaller than or equal to a max distance
-        for p in range(pos-neighbour_size, pos+neighbour_size+1):
+        # Accept only positions close to the expected distance. The fragments
+        # should align one fragment-length apart for it to be a true DSB. We
+        # can accept an error of 10-20bp
+        error = 10
+
+        for p in range(pos+fragment_length-error, pos+fragment_length+error+1):
             _id = (s[0], p)
 
             if _id in sites:
                 num_sites += 1
-                outfile.write("\t".join([str(x) for x in [sample, s[0], s[1], _id[1], _id[1] - s[1], count, sites[_id]]]) + "\n")
 
+                # Get closest gene
+                gene_set = set()
+                break_pos = _id[1]
+
+                # Add overlapping gene info
+                for gene in genes_dict[chrom][break_pos // bin_size]:
+                    if break_pos in range(gene[0], gene[1]+1):
+                        gene_set.add(gene[-1])
+
+                gene_name = ",".join(sorted(list(gene_set)))
+                if not gene_name:
+                    gene_name = "-na-"
+
+                read_ratio = sites[_id] / count
+                read_ratio = round(read_ratio, 1)
+
+                # Write to file
+                outfile.write("\t".join([str(x) for x in [sample, s[0], s[1], _id[1],
+                    _id[1] - s[1] - fragment_length, count, sites[_id], read_ratio, gene_name]]) + "\n")
+
+    # Report stats for file
     print(f"Found {num_sites} sites for {input_file.split('/')[1].split('_')[0]}")

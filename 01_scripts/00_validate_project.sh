@@ -1,6 +1,8 @@
 #!/bin/bash
 # Validate project before launching GUIDEseq IBIS
 
+# TODO Create validation script
+
 exit 0
 
 # Global variables
@@ -22,12 +24,6 @@ do
     fi
 
 done
-
-# TODO
-# Validate database format
-# - Valid fasta format
-# - Names are Family_Genus_species
-# - Names optionally followed by a space and any kind of info on the same line
 
 # Data files (.fastq.gz or .fq.gz) are present in 04-data
 if ! ls -1 "$DATA_FOLDER"/*.f*q.gz > /dev/null
