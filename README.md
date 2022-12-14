@@ -8,12 +8,7 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 * Modify `validate_project.sh`
 
-- .. Test different params for DBS identification
-
-? Start version system (only with tags on GitHub, no vx.y.z in text?)
-? Process files from biggest to smallest with parallel (to reduce time) or in
-  version-sort order (more logical for step reports)?
-? Compress samfiles if big (to `.sam.gz`, not `.bam`)?
+- Start version system (only with tags on GitHub, no vx.y.z in text?)
 
 ## Description
 
