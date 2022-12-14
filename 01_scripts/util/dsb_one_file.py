@@ -20,7 +20,7 @@ except:
     sys.exit(1)
 
 # Find DSBs
-min_cov = 20
+min_cov = 10
 window_size = 10
 
 # Load gene annotation file
