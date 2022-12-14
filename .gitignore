@@ -12,5 +12,6 @@
 07_aligned/*
 08_deduplicated/*
 09_sites/*
+10_read_dropout/*
 99_logfiles/*
 human*.csv
