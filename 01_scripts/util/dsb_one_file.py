@@ -92,9 +92,9 @@ with open(output_file, "wt") as outfile:
         # Accept only positions close to the expected distance. The fragments
         # should align one fragment-length apart for it to be a true DSB. We
         # can accept an error of 10-20bp
-        error = 10
+        pos_error = 10
 
-        for p in range(pos+fragment_length-error, pos+fragment_length+error+1):
+        for p in range(pos+fragment_length-pos_error, pos+fragment_length+pos_error+1):
             _id = (s[0], p)
 
             if _id in sites:
