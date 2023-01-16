@@ -6,9 +6,9 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
-* Modify `validate_project.sh`
-
 - Start version system (only with tags on GitHub, no vx.y.z in text?)
+- Create test dataset
+- Modify `validate_project.sh`
 
 ## Description
 
