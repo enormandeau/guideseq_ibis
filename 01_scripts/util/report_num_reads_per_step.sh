@@ -54,3 +54,9 @@ ls -1 *.dsb | cut -d "_" -f 1 | sort -uV |
         echo -e "$i\t"$(grep -v Sample "$i"*.dsb | awk '{s = s+($6+$7)}END{print s}')
     done > ../10_read_dropout/"$FOLDER"_reads.tsv
 cd ..
+
+cat 09_sites/* |
+    sort -Vu |
+    perl -pe 's/0Sample/\nSample/' |
+    column -t |
+    perl -pe 's/ +/   /g' > guideseq_ibis_report.tsv
