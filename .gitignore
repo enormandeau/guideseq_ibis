@@ -2,6 +2,9 @@
 *.gz
 *.png
 *.sam
+*.xls
+*.xlsx
+*.~lock.*
 *data
 *~
 00_archive/*
