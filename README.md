@@ -6,7 +6,8 @@ Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
-- Start version system (only with tags on GitHub, no vx.y.z in text?)
+- Report chromosome names, not numbers
+- Start version system
 - Create test dataset
 - Modify `validate_project.sh`
 
