@@ -1,4 +1,5 @@
 *.bam
+*.csv
 *.gz
 *.png
 *.sam
