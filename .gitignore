@@ -3,6 +3,7 @@
 *.gz
 *.png
 *.sam
+*.tsv
 *.xls
 *.xlsx
 *.~lock.*

@@ -34,12 +34,12 @@ for g in genes:
     if g[0] == ("#Name"):
         continue
 
-    chrom, _from, _to, gene = g[1], int(g[2]), int(g[3]), g[6]
+    name, chrom, _from, _to, gene = g[0], g[1], int(g[2]), int(g[3]), g[6]
 
     bins = range(_from // bin_size, (_to // bin_size)+1)
 
     for b in bins:
-        genes_dict[chrom][b].append((_from, _to, gene))
+        genes_dict[chrom][b].append((_from, _to, gene, name))
 
 coverages = defaultdict(int)
 data = [x.strip().split("\t") for x in open(input_file).readlines()]
@@ -106,8 +106,11 @@ with open(output_file, "wt") as outfile:
 
                 # Add overlapping gene info
                 for gene in genes_dict[chrom][break_pos // bin_size]:
+
+                    name = gene[-1]
+
                     if break_pos in range(gene[0], gene[1]+1):
-                        gene_set.add(gene[-1])
+                        gene_set.add(gene[-2])
 
                 gene_name = ",".join(sorted(list(gene_set)))
                 if not gene_name:
@@ -117,7 +120,7 @@ with open(output_file, "wt") as outfile:
                 read_ratio = round(read_ratio, 1)
 
                 # Write to file
-                outfile.write("\t".join([str(x) for x in [sample, s[0], s[1], _id[1],
+                outfile.write("\t".join([str(x) for x in [sample, name, s[1], _id[1],
                     _id[1] - s[1] - fragment_length, count, sites[_id], read_ratio, gene_name]]) + "\n")
 
     # Report stats for file
