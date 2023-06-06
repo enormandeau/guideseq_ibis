@@ -59,4 +59,4 @@ cat 09_sites/* |
     sort -Vu |
     perl -pe 's/0Sample/\nSample/' |
     column -t |
-    perl -pe 's/ +/   /g' > guideseq_ibis_report.tsv
+    perl -pe 's/ +/	/g' > guideseq_ibis_report.tsv
