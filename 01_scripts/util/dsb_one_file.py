@@ -2,7 +2,7 @@
 """Find Double Stranded Breaks (DSBs)
 
 Usage:
-    <program> input_file output_file
+    <program> input_file fragment_length output_file
 """
 
 # Modules
@@ -19,16 +19,17 @@ except:
     print(__doc__)
     sys.exit(1)
 
-# Find DSBs
+# Global parameters
 min_cov = 10
 window_size = 10
+pos_error = 10
+bin_size = 10000
 
 # Load gene annotation file
 genes = [x.strip().split("\t") for x in
         open("00_archive/human_GRCh38.p14_genes_simplified.tsv").readlines()]
 
 genes_dict = defaultdict(lambda: defaultdict(list))
-bin_size = 10000
 
 for g in genes:
     if g[0] == ("#Name"):
@@ -50,6 +51,9 @@ for d in data:
 
 sorted_coverages = sorted([(x[1], x[0]) for x in coverages.items()], reverse=True)
 
+#for c in sorted_coverages[:30]:
+#    print(c)
+
 # Get site with higest coverage
 # Aggregate all the counts withing `window_size` bp on each side
 # Remove site and neighbours from `coverages`
@@ -68,6 +72,7 @@ for site in sorted_coverages:
     if (chrom, pos) in visited:
         continue
 
+    visited.add((chrom, pos))
     sites[(chrom, pos)] = 0
 
     for p in range(pos-window_size, pos+window_size+1):
@@ -92,8 +97,6 @@ with open(output_file, "wt") as outfile:
         # Accept only positions close to the expected distance. The fragments
         # should align one fragment-length apart for it to be a true DSB. We
         # can accept an error of 10-20bp
-        pos_error = 10
-
         for p in range(pos+fragment_length-pos_error, pos+fragment_length+pos_error+1):
             _id = (s[0], p)
 
@@ -113,8 +116,10 @@ with open(output_file, "wt") as outfile:
                         gene_set.add(gene[-2])
 
                 gene_name = ",".join(sorted(list(gene_set)))
+
                 if not gene_name:
                     gene_name = "-na-"
+                    name = list(genes_dict[chrom].values())[0][0][-1]
 
                 read_ratio = sites[_id] / count
                 read_ratio = round(read_ratio, 1)
