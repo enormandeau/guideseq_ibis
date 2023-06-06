@@ -2,35 +2,36 @@
 
 GUIDE-seq analysis pipeline, v0.1.0
 
-Developed by [Eric Normandeau](https://github.com/enormandeau)
-
 ## TODO
 
 - Add parameters from `dsb_one_file.py` to config file
-- Start version system
-- Create test dataset
+- Create test dataset (from the big dataset to come for the article)
 - Modify `validate_project.sh`
+- Rename to GUIDE-seq validate?
 
 ## Description
 
-GUIDE-seq IBIS is used to validate CRISPR-Cas9 guide design through guideseq
-experiments.
+GUIDE-seq IBIS is used to validate CRISPR-Cas guide designs. In analyzes data
+generated with guideseq experiments as modified by the (IBIS Genomic Analysis
+Plateform)[https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/].
+
+Both the lab protocol and analysis pipeline were inspired by previous work, although
+GUIDE-seq IBIS has been written from scratch:
+
+- Lab protocol: (GUIDE-seq enables genome-wide profiling of off-target cleavage
+by CRISPR-Cas nucleases)[https://pubmed.ncbi.nlm.nih.gov/25513782/]
+- GUIDE-seq IBIS:
+(https://github.com/tsailabSJ/guideseq)[https://github.com/tsailabSJ/guideseq]
 
 ## Citation
 
 GUIDE-seq IBIS is described in ...
 
-## Use cases
-
-- Research on cell cultures
-- Agriculture plants
-- ...
-
 ## Installation
 
 To use GUIDE-seq IBIS, you will need a local copy of its repository. Different
 releases can be [found here](https://github.com/enormandeau/guideseq_ibis/tags).
-It is recommended to always use the latest release or even the developpment
+It is recommended to always use the latest release or even the development
 version. You can either download an archive of the latest release at the above
 link or get the latest commit (recommended) with the following git command:
 
@@ -46,11 +47,12 @@ on your computer.
 - GUIDE-seq IBIS will only work on GNU Linux or OSX
 - bash 4+
 - python 3.7+ (you can use miniconda3 to install python)
-//- R 3+ (ubuntu/mint: `sudo apt-get install r-base-core`)
 - java (ubuntu/mint: `sudo apt-get install default-jre`)
 - [gnu parallel](https://www.gnu.org/software/parallel/)
 - bwa 0.7.17-r1188+
 - OpenJDK (java)
+
+//- R 3+ (ubuntu/mint: `sudo apt-get install r-base-core`)
 
 ### Preparation
 
@@ -78,8 +80,8 @@ Modify the parameters in `02_info/guideseq_ibis_config.sh` as needed.
 
 ### Launching the analysis
 
-Launch the `guideseq_ibis` executable with the name of your configuration file as an
-argument, like this:
+Launch the `guideseq_ibis` executable and pass the name of your configuration
+file as an argument, like this:
 
 ```bash
 ./guideseq_ibis 02_info/guideseq_ibis_config.sh
@@ -115,14 +117,14 @@ separate parts of your sample names, eg: `GroupA-sample01_ANYTHING_R1_001.fastq.
 
 ### Results
 
-Once the pipeline has finished running, all result files are found in the
-`####_results` folder.
-
-### Describe results by type
+The results consist in:
+1. A file describing how many reads per samples remain after each analysis step
+1. A tsv file containing information about the enriched targets found for each
+   sample
 
 ### Log files and parameters
 
-For each run, three files are written in the `99_logfiles` folder. Each
+For each run, two files are written in the `99_logfiles` folder. Each
 contain a timestamp with the time of the run:
 
 1. The exact config file that has been used
@@ -137,6 +139,8 @@ composed of ####
 If you have git and the GUIDE-seq IBIS dependencies installed, the following
 commands will download the repository and the test data and put them in the
 appropriate folder.
+
+# TODO Replace all of this by `./01_scripts/util/run_test.sh` 
 
 ```bash
 git clone https://github.com/enormandeau/guideseq_ibis
@@ -155,4 +159,4 @@ cd guideseq_ibis
 
 CC share-alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">GUIDE-seq IBIS</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Eric Normandeau</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/enormandeau/guideseq_ibis" rel="dct:source">https://github.com/enormandeau/guideseq_ibis</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">GUIDE-seq IBIS</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Eric Normandeau</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
