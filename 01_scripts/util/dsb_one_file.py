@@ -87,7 +87,7 @@ sample = input_file.split("/")[1].split("_")[0]
 num_sites = 0
 
 with open(output_file, "wt") as outfile:
-    outfile.write("0Sample\tChromosome\tSite1\tSite2\tDist\tCnt1\tCnt2\tRatio\tGene\n")
+    outfile.write("Sample\tChromosome\tSite1\tSite2\tDist\tCnt1\tCnt2\tRatio\tGene\n")
 
     for s in sorted(sites):
         chrom, pos = s
