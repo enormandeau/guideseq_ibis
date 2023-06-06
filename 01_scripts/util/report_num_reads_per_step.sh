@@ -55,9 +55,10 @@ ls -1 *.dsb | cut -d "_" -f 1 | sort -uV |
     done > ../10_read_dropout/"$FOLDER"_reads.tsv
 cd ..
 
+paste 10_read_dropout/*.tsv > read_dropout.tsv
+
 cat 09_sites/* | head -1 > guideseq_ibis_report.tsv
 for i in 09_sites/*.dsb
 do
     grep -v "^Sample" "$i"
-    echo
 done >> guideseq_ibis_report.tsv

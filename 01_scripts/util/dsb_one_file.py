@@ -20,6 +20,7 @@ except:
     sys.exit(1)
 
 # Global parameters
+# TODO Add to config file
 min_cov = 10
 window_size = 10
 pos_error = 10

@@ -1,24 +1,24 @@
-# GUIDEseq IBIS
+# GUIDE-seq IBIS
 
-GUIDE-seq analysis pipeline
+GUIDE-seq analysis pipeline, v0.1.0
 
 Developed by [Eric Normandeau](https://github.com/enormandeau)
 
 ## TODO
 
-- Report chromosome names, not numbers
+- Add parameters from `dsb_one_file.py` to config file
 - Start version system
 - Create test dataset
 - Modify `validate_project.sh`
 
 ## Description
 
-GUIDE-seq IBIS is a pipeline for...
+GUIDE-seq IBIS is used to validate CRISPR-Cas9 guide design through guideseq
+experiments.
 
 ## Citation
 
 GUIDE-seq IBIS is described in ...
-
 
 ## Use cases
 
@@ -50,13 +50,14 @@ on your computer.
 - java (ubuntu/mint: `sudo apt-get install default-jre`)
 - [gnu parallel](https://www.gnu.org/software/parallel/)
 - bwa 0.7.17-r1188+
+- OpenJDK (java)
 
 ### Preparation
 
 - Install dependencies
 - Download a copy of the GUIDE-seq IBIS repository (see **Installation** above)
-- Get reference genome (ideally named `genome.fasta` in folder `03_genome`) and
-  index it with `bwa index genome.fasta`
+- Get reference genome (ideally named `genome.fasta` in folder `03_genome`)
+- Index the genome with `bwa index genome.fasta`
 - Modify the parameters in `02_info/guideseq_ibis_config.sh` for your run
 - Launch GUIDE-seq IBIS
 
@@ -66,10 +67,9 @@ During the analyses, the following steps are performed:
 
 - Filter and trim raw reads (`trimmomatic`)
 - Extract UMI, dsODN, and other informations (Python script)
-- Map reads to reference genome
-- Remove PCR duplicates using UMI, first 8 nucleotides, and alignment position
-- Find Double Strand Breaks (DSBs)
-- Remove sites found in control
+- Map reads to reference genome (bwa)
+- Remove PCR duplicates using UMI, first 8 nucleotides, and alignment position (Python script)
+- Find Double Strand Breaks (DSBs, Python script)
 - Summarize results (Python script)
 
 ### Configuration file
@@ -95,9 +95,11 @@ program and it's outputs.
 
 Copy your paired-end sample files in the `04_data` folder. You need one pair of
 files per sample. The sequences in these files must contain the sequences of
-the primer that you used during the PCR. Depending on the format in which you
-received your sequences from the sequencing facility, you may have to proceed
-to demultiplexing before you can use GUIDE-seq IBIS.
+the primers that you used during the PCR.
+
+**NOTE:** GUIDE-seq IBIS does not demultiplex reads. Depending on the format in
+which you received your sequences from the sequencing facility, you may have to
+proceed to demultiplexing before you can use GUIDE-seq IBIS.
 
 **IMPORTANT:** The file names must follow this format:
 
@@ -109,7 +111,7 @@ SampleID_*_R2_001.fastq.gz
 Notes: Each sample name, or SampleID, must contain no underscore (`_`) and be
 followed by an underscore (`_`). The star (`*`) can be any string of text that
 **does not contain space characters**. For example, you can use dashed (`-`) to
-separate parts of your sample names, eg: `PopA-sample001_ANYTHING_R1_001.fastq.gz`.
+separate parts of your sample names, eg: `GroupA-sample01_ANYTHING_R1_001.fastq.gz`.
 
 ### Results
 
