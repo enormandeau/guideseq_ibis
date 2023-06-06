@@ -29,7 +29,7 @@ GUIDE-seq IBIS is described in ...
 ## Installation
 
 To use GUIDE-seq IBIS, you will need a local copy of its repository. Different
-releases can be [found here](https://github.com/enormandeau/guideseq_ibis/releases).
+releases can be [found here](https://github.com/enormandeau/guideseq_ibis/tags).
 It is recommended to always use the latest release or even the developpment
 version. You can either download an archive of the latest release at the above
 link or get the latest commit (recommended) with the following git command:
