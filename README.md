@@ -1,6 +1,4 @@
-# GUIDE-seq IBIS
-
-GUIDE-seq analysis pipeline, v0.1.0
+# GUIDE-seq IBIS v0.1.0
 
 ## TODO
 
