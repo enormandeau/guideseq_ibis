@@ -38,7 +38,7 @@ for g in genes:
 
     name, chrom, _from, _to, gene = g[0], g[1], int(g[2]), int(g[3]), g[6]
 
-    bins = range(_from // bin_size, (_to // bin_size)+1)
+    bins = range((_from // bin_size)-1, (_to // bin_size)+2)
 
     for b in bins:
         genes_dict[chrom][b].append((_from, _to, gene, name))
@@ -56,7 +56,7 @@ sorted_coverages = sorted([(x[1], x[0]) for x in coverages.items()], reverse=Tru
 #    print(c)
 
 # Get site with higest coverage
-# Aggregate all the counts withing `window_size` bp on each side
+# Aggregate all the counts within `window_size` bp on each side
 # Remove site and neighbours from `coverages`
 # Count this as a potential site and go down the list until you hit
 # a site with less than `min_cov` reads
