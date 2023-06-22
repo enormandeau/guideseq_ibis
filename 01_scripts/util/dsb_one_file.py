@@ -36,12 +36,12 @@ for g in genes:
     if g[0] == ("#Name"):
         continue
 
-    name, chrom, _from, _to, gene = g[0], g[1], int(g[2]), int(g[3]), g[6]
+    name, seqid, _from, _to, gene = g[0], g[1], int(g[2]), int(g[3]), g[6]
 
     bins = range((_from // bin_size)-1, (_to // bin_size)+2)
 
     for b in bins:
-        genes_dict[chrom][b].append((_from, _to, gene, name))
+        genes_dict[seqid][b].append((_from, _to, seqid, gene, name))
 
 coverages = defaultdict(int)
 data = [x.strip().split("\t") for x in open(input_file).readlines()]
@@ -88,7 +88,7 @@ sample = input_file.split("/")[1].split("_")[0]
 num_sites = 0
 
 with open(output_file, "wt") as outfile:
-    outfile.write("Sample\tChromosome\tSite1\tSite2\tDist\tCnt1\tCnt2\tRatio\tGene\n")
+    outfile.write("Sample\tChromosome\tSeqID\tSite1\tSite2\tDist\tCnt1\tCnt2\tRatio\tGene\n")
 
     for s in sorted(sites):
         chrom, pos = s
@@ -112,6 +112,7 @@ with open(output_file, "wt") as outfile:
                 for gene in genes_dict[chrom][break_pos // bin_size]:
 
                     name = gene[-1]
+                    seqid = gene[2]
 
                     if break_pos in range(gene[0], gene[1]+1):
                         gene_set.add(gene[-2])
@@ -121,12 +122,13 @@ with open(output_file, "wt") as outfile:
                 if not gene_name:
                     gene_name = "-na-"
                     name = list(genes_dict[chrom].values())[0][0][-1]
+                    seqid = list(genes_dict[chrom].values())[0][0][2]
 
                 read_ratio = sites[_id] / count
                 read_ratio = round(read_ratio, 1)
 
                 # Write to file
-                outfile.write("\t".join([str(x) for x in [sample, name, s[1], _id[1],
+                outfile.write("\t".join([str(x) for x in [sample, name, seqid, s[1], _id[1],
                     _id[1] - s[1] - fragment_length, count, sites[_id], read_ratio, gene_name]]) + "\n")
 
     # Report stats for file
