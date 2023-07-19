@@ -21,9 +21,9 @@ except:
 
 # Global parameters
 # TODO Add to config file
-min_cov = 10
+min_cov = 50
 window_size = 10
-pos_error = 10
+pos_error = 5
 bin_size = 10000
 
 # Load gene annotation file
@@ -51,9 +51,6 @@ for d in data:
     coverages[_id] += 1
 
 sorted_coverages = sorted([(x[1], x[0]) for x in coverages.items()], reverse=True)
-
-#for c in sorted_coverages[:30]:
-#    print(c)
 
 # Get site with higest coverage
 # Aggregate all the counts within `window_size` bp on each side
@@ -121,11 +118,16 @@ with open(output_file, "wt") as outfile:
 
                 if not gene_name:
                     gene_name = "-na-"
-                    name = list(genes_dict[chrom].values())[0][0][-1]
-                    seqid = list(genes_dict[chrom].values())[0][0][2]
+
+                    try:
+                        name = list(genes_dict[chrom].values())[0][0][-1]
+                        seqid = list(genes_dict[chrom].values())[0][0][2]
+                    except:
+                        name = chrom
+                        seqid = chrom
 
                 read_ratio = sites[_id] / count
-                read_ratio = round(read_ratio, 1)
+                read_ratio = round(read_ratio, 2)
 
                 # Write to file
                 outfile.write("\t".join([str(x) for x in [sample, name, seqid, s[1], _id[1],
