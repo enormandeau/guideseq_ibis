@@ -14,12 +14,12 @@ TRIMMED_FOLDER="05_trimmed"
 # Trimmomatic
 java -XX:ParallelGCThreads=1 -cp "$TRIMMOMATIC_JAR" org.usadellab.trimmomatic.TrimmomaticPE \
     -phred33 \
-    "$DATA_FOLDER"/"$BASE"R1_001.fastq.gz \
-    "$DATA_FOLDER"/"$BASE"R2_001.fastq.gz \
-    "$TRIMMED_FOLDER"/"$BASE"R1_001.fastq.gz \
-    "$TRIMMED_FOLDER"/"$BASE"R1_001.single.fastq.gz \
-    "$TRIMMED_FOLDER"/"$BASE"R2_001.fastq.gz \
-    "$TRIMMED_FOLDER"/"$BASE"R2_001.single.fastq.gz \
+    "$DATA_FOLDER"/"$BASE"R1.fastq.gz \
+    "$DATA_FOLDER"/"$BASE"R2.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R1.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R1.single.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R2.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R2.single.fastq.gz \
     LEADING:25 \
     TRAILING:25 \
     SLIDINGWINDOW:25:25 \
@@ -27,5 +27,5 @@ java -XX:ParallelGCThreads=1 -cp "$TRIMMOMATIC_JAR" org.usadellab.trimmomatic.Tr
     CROP:"$CROP_LENGTH"
 
 ## Cleanup
-rm "$TRIMMED_FOLDER"/"$BASE"R1_001.single.fastq.gz 2>/dev/null
-rm "$TRIMMED_FOLDER"/"$BASE"R2_001.single.fastq.gz 2>/dev/null
+rm "$TRIMMED_FOLDER"/"$BASE"R1.single.fastq.gz 2>/dev/null
+rm "$TRIMMED_FOLDER"/"$BASE"R2.single.fastq.gz 2>/dev/null
