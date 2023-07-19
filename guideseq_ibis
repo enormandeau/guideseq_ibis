@@ -59,6 +59,14 @@ echo -e "\nGUIDE-seq IBIS: Removing PCR duplicates\n"
 echo -e "\nGUIDE-seq IBIS: Find Double Stranded Breaks (DSBs)\n"
 ./01_scripts/05_dsb.sh "$NCPUS" "$MIN_LENGTH"
 
+# Summarize results
+echo -e "\nGUIDE-seq IBIS: Create report\n"
+cat 09_sites/* | head -1 > guideseq_ibis_report.tsv
+for i in 09_sites/*.dsb
+do
+    grep -v "^Sample" "$i"
+done >> guideseq_ibis_report.tsv
+
 # Report number of reads per step
-echo -e "\nGUIDE-seq IBIS: Report number of reads per step\n"
-./01_scripts/util/report_num_reads_per_step.sh
+#echo -e "\nGUIDE-seq IBIS: Report number of reads per step\n"
+#./01_scripts/util/report_num_reads_per_step.sh
