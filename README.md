@@ -5,7 +5,7 @@
 - Report guide differences for all enriched targets
 - Add parameters from `dsb_one_file.py` to config file
 - Create test dataset (from the big dataset to come for the article)
-- Modify `validate_project.sh`
+- Modify `00_validate_project.sh`
 - Rename to GUIDE-seq validate?
 
 ## Description
