@@ -81,11 +81,11 @@ for site in sorted_coverages:
 
 # Get DSB duets: pairs of sites with good coverages at ~100 bp one from each other
 duets = 0
-sample = input_file.split("/")[1].split("_")[0]
+sample = input_file.split("/")[1].split(".")[0].split("_")[0]
 num_sites = 0
 
 with open(output_file, "wt") as outfile:
-    outfile.write("Sample\tChromosome\tSeqID\tSite1\tSite2\tDist\tCnt1\tCnt2\tRatio\tGene\n")
+    outfile.write("Sample\tChromosome\tSeqID\tPos1\tPos2\tDist\tCount1\tCount2\tRatio\tGene\n")
 
     for s in sorted(sites):
         chrom, pos = s
@@ -134,4 +134,4 @@ with open(output_file, "wt") as outfile:
                     _id[1] - s[1] - fragment_length, count, sites[_id], read_ratio, gene_name]]) + "\n")
 
     # Report stats for file
-    print(f"Found {num_sites} sites for {input_file.split('/')[1].split('_')[0]}")
+    print(f"Found {num_sites} sites for {sample}")
