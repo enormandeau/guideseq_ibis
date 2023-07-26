@@ -2,7 +2,7 @@
 
 ## TODO
 
-- Report guide differences for all enriched targets
+- Add guide differences for all enriched targets to report
 - Add parameters from `dsb_one_file.py` to config file
 - Create test dataset (from the big dataset to come for the article)
 - Modify `00_validate_project.sh`
