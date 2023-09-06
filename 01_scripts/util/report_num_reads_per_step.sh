@@ -1,6 +1,8 @@
 #!/bin/bash
 # Report number of reads per step
 
+mkdir 10_read_dropout 2>/dev/null
+
 export FOLDER="04_data"
 echo "  Examining $FOLDER"
 cd "$FOLDER"

@@ -8,6 +8,7 @@ Usage:
 # Modules
 # import gzip
 from collections import defaultdict
+import gzip
 import sys
 
 # Parse input
@@ -28,7 +29,7 @@ bin_size = 10000
 
 # Load gene annotation file
 genes = [x.strip().split("\t") for x in
-        open("00_archive/human_GRCh38.p14_genes_simplified.tsv").readlines()]
+        gzip.open("02_infos/human_GRCh38.p14_genes_simplified.tsv.gz", "rt").readlines()]
 
 genes_dict = defaultdict(lambda: defaultdict(list))
 

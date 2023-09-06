@@ -68,5 +68,6 @@ do
 done >> guideseq_ibis_report.tsv
 
 # Report number of reads per step
+# NOTE: For debugging purposes, otherwise keep commented out
 #echo -e "\nGUIDE-seq IBIS: Report number of reads per step\n"
 #./01_scripts/util/report_num_reads_per_step.sh

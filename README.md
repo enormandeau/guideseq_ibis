@@ -3,7 +3,6 @@
 ## TODO
 
 - Add parameters from `dsb_one_file.py` to config file
-- Add `human_GRCh38.p14_genes_simplified.tsv` to `02_infos`
 - Create test dataset (from the big dataset to come for the article, including annotation infos)
 - Modify `00_validate_project.sh`
 
