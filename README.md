@@ -3,7 +3,9 @@
 ## TODO
 
 - Create test dataset (from the big dataset to come for the article, including annotation infos)
+- Recommendation for `MIN_COVERAGE` parameter
 - Modify `00_validate_project.sh`
+- Bump to v1.0.0 before submission
 
 ## Description
 
