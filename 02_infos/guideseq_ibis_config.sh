@@ -14,7 +14,7 @@ CROP_LENGTH=200             # Cut reads to this length after filtering (int, 100
 GENOME_FILE="genome.fasta"  # Name of genome file in 03_genome folder
 
 # Double stranded breaks (DSB) parameters
-WINDOW_SIZE=10              # Window size on each side of highest point of coverage to count alignments
 MIN_COVERAGE=20             # Minimum total coverage to detect a target or off-target
+WINDOW_SIZE=10              # Window size on each side of highest point of coverage to count alignments
 POSITION_ERROR=5            # Accept DSBs with forward and reverse targets at slightly different positions
 BIN_SIZE=10000              # Divide chromosomes in bins of that size to locate genes. Keep at 1000 or 10000
