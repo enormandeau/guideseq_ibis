@@ -3,23 +3,26 @@
 ## TODO
 
 - Add parameters from `dsb_one_file.py` to config file
+- Add `human_GRCh38.p14_genes_simplified.tsv` to `02_infos`
 - Create test dataset (from the big dataset to come for the article, including annotation infos)
 - Modify `00_validate_project.sh`
-- Describe how to annotate with script `06_annotate_hits.py`
 
 ## Description
 
 GUIDE-seq IBIS is used to validate CRISPR-Cas guide designs. In analyzes data
-generated with guideseq experiments as modified by the (IBIS Genomic Analysis
-Plateform)[https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/].
+generated with guideseq experiments as modified by the [IBIS Genomic Analysis
+Plateform](https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/).
 
-Both the lab protocol and analysis pipeline were inspired by previous work, although
-GUIDE-seq IBIS has been written from scratch:
+Both the lab protocol and analysis pipeline were inspired by previous work
+(https://github.com/tsailabSJ/guideseq)[https://github.com/tsailabSJ/guideseq],
+although GUIDE-seq IBIS has been completely re-written to accomodate the
+protocol changes.
 
 - Lab protocol: (GUIDE-seq enables genome-wide profiling of off-target cleavage
 by CRISPR-Cas nucleases)[https://pubmed.ncbi.nlm.nih.gov/25513782/]
-- GUIDE-seq IBIS:
-(https://github.com/tsailabSJ/guideseq)[https://github.com/tsailabSJ/guideseq]
+- GUIDE-seq IBIS repository on GitHub:
+[https://github.com/enormandeau/guideseq_ibis](https://github.com/enormandeau/guideseq_ibis)
+
 
 ## Citation
 
@@ -50,14 +53,13 @@ on your computer.
 - bwa 0.7.17-r1188+
 - OpenJDK (java)
 
-//- R 3+ (ubuntu/mint: `sudo apt-get install r-base-core`)
-
 ### Preparation
 
-- Install dependencies
-- Download a copy of the GUIDE-seq IBIS repository (see **Installation** above)
+- Install the dependencies
+- Download a copy of the GUIDE-seq IBIS repository
 - Get reference genome (ideally named `genome.fasta` in folder `03_genome`)
-- Index the genome with `bwa index genome.fasta`
+- Index the genome, eg. with `bwa index genome.fasta`
+- Add your paired-end GUIDE-seq data to `04_data`
 - Modify the parameters in `02_info/guideseq_ibis_config.sh` for your run
 - Launch GUIDE-seq IBIS
 
@@ -71,6 +73,7 @@ During the analyses, the following steps are performed:
 - Remove PCR duplicates using UMI, first 8 nucleotides, and alignment position (Python script)
 - Find Double Strand Breaks (DSBs, Python script)
 - Summarize results (Python script)
+- Optionally, annotate hits to show differences from expected guide
 
 ### Configuration file
 
@@ -88,8 +91,8 @@ file as an argument, like this:
 ### Running on the test dataset
 
 If you want to test GUIDE-seq IBIS, jump straight to the `Test dataset` section
-at the end of this file. Read through the README after to better understand the
-program and it's outputs.
+at the end of this file. Read through the README after to better understand
+GUIDE-seq IBIS and its outputs.
 
 ### Preparing samples
 
@@ -108,17 +111,29 @@ SampleID_*_R1_001.fastq.gz
 SampleID_*_R2_001.fastq.gz
 ```
 
-Notes: Each sample name, or SampleID, must contain no underscore (`_`) and be
+Where `SampleID` is the name of the sample.
+
+**NOTE**: Each sample name, or SampleID, must contain no underscore (`_`) and be
 followed by an underscore (`_`). The star (`*`) can be any string of text that
-**does not contain space characters**. For example, you can use dashed (`-`) to
+**does not contain space characters**. For example, you can use dashes (`-`) to
 separate parts of your sample names, eg: `GroupA-sample01_ANYTHING_R1_001.fastq.gz`.
+In this case, the name of the sample is `GroupA-sample01`.
 
 ### Results
 
 The results consist in:
-1. A file describing how many reads per samples remain after each analysis step
 1. A tsv file containing information about the enriched targets found for each
    sample
+
+### Adding annotation
+
+The output file can be annotated to show the differences between the sequences
+of the off-target amplifications and the expected guide sequence:
+
+```
+./01_scripts/06_annotate_hits.py guideseq_ibis_report.tsv guide_info_per_sample.tsv \
+    03_genome/genome.fasta guideseq_ibis_report_annotated.tsv
+```
 
 ### Log files and parameters
 
