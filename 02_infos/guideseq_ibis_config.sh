@@ -12,3 +12,9 @@ MIN_LENGTH=100              # Length to trim sequences (int, 50+)
 CROP_LENGTH=200             # Cut reads to this length after filtering (int, 100+)
 
 GENOME_FILE="genome.fasta"  # Name of genome file in 03_genome folder
+
+# DSB parameters
+MIN_COV=50                  # Minimum total coverage to detect a target or off-target
+WINDOW_SIZE=10              # Window size on each side of highest point of coverage to count alignments
+POSITION_ERROR=5            # Accept DSBs with forward and reverse targets at slightly different positions
+BIN_SIZE=10000              # Divide chromosomes in bins of that size to locate genes. Keep at 1000 or 10000

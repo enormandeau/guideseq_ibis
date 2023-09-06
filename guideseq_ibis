@@ -57,7 +57,7 @@ echo -e "\nGUIDE-seq IBIS: Removing PCR duplicates\n"
 
 # Find Double Stranded Breaks (DSBs)
 echo -e "\nGUIDE-seq IBIS: Find Double Stranded Breaks (DSBs)\n"
-./01_scripts/05_dsb.sh "$NCPUS" "$MIN_LENGTH"
+./01_scripts/05_dsb.sh "$NCPUS" "$MIN_LENGTH" "$MIN_COV" "$WINDOW_SIZE" "$POSITION_ERROR" "$BIN_SIZE"
 
 # Summarize results
 echo -e "\nGUIDE-seq IBIS: Create report\n"

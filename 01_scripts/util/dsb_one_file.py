@@ -2,7 +2,7 @@
 """Find Double Stranded Breaks (DSBs)
 
 Usage:
-    <program> input_file fragment_length output_file
+    <program> input_file fragment_length min_cov window_size pos_error bin_size output_file
 """
 
 # Modules
@@ -15,17 +15,14 @@ import sys
 try:
     input_file = sys.argv[1]
     fragment_length = int(sys.argv[2])
-    output_file = sys.argv[3]
+    min_cov = int(sys.argv[3])
+    window_size = int(sys.argv[4])
+    pos_error = int(sys.argv[5])
+    bin_size = int(sys.argv[6])
+    output_file = sys.argv[7]
 except:
     print(__doc__)
     sys.exit(1)
-
-# Global parameters
-# TODO Add to config file
-min_cov = 50
-window_size = 10
-pos_error = 5
-bin_size = 10000
 
 # Load gene annotation file
 genes = [x.strip().split("\t") for x in
