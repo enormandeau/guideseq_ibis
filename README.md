@@ -151,6 +151,8 @@ If you have git and the GUIDE-seq IBIS dependencies installed, the following
 commands will download the repository and the test data and put them in the
 appropriate folder.
 
+# TODO Add infos to download and index human genome
+
 # TODO Replace all of this by `./01_scripts/util/run_test.sh` 
 
 ```bash
