@@ -1,12 +1,10 @@
-# GUIDE-Seq IBIS v0.1.0
+# GUIDE-Seq IBIS v0.9.0
 
 ## TODO
 
-- Create test dataset (from the big dataset to come for the article, including annotation infos)
-- Recommendation for `MIN_COVERAGE` parameter
-- Modify `00_validate_project.sh`
 - Add submission link
 - Bump to v1.0.0
+- Modify `00_validate_project.sh`
 
 ## Description
 
@@ -193,8 +191,8 @@ cd ..
 # Run main analysis
 ./guideseq_ibis 02_info/guideseq_ibis_config.sh
 
-# Annotation of the targets and off-targets
-./01_scripts/06_annotate_hits.py guideseq_ibis_report.tsv guide_info_per_sample.tsv \
+# Annotation of targets and off-targets
+./01_scripts/06_annotate_hits.py guideseq_ibis_report.tsv 02_infos/guide_info_per_sample.tsv \
     03_genome/genome.fasta guideseq_ibis_report_annotated.tsv
 ```
 
