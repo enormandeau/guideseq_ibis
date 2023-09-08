@@ -2,9 +2,9 @@
 
 ## Description
 
-GUIDE-Seq IBIS is used to validate CRISPR-Cas guide designs. It analyzes data
-generated with an improved GUIDE-Seq protocol, as modified by the [IBIS Genomic Analysis
-Plateform](https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/).
+Analyze GUIDE-Seq data generated with the improved GUIDE-Seq protocol.
+
+See citation below for more details about the new protocol and analysis pipeline.
 
 ## Citation
 
@@ -14,15 +14,15 @@ The new GUIDE-Seq protocol and analysis pipeline, GUIDE-Seq IBIS, are described 
 
 ## Inspiration from previous work
 
-Both the lab protocol and analysis pipeline were inspired by previous work.
+Both the lab protocol and analysis pipeline were inspired by previous work:
 
-- [Original lab protocol](https://github.com/tsailabSJ/guideseq)
-- [Original pipeline](https://pubmed.ncbi.nlm.nih.gov/25513782/)
+- [Original lab protocol](https://pubmed.ncbi.nlm.nih.gov/25513782/)
+- [Original pipeline](https://github.com/tsailabSJ/guideseq)
 
 ## Installation
 
-To use GUIDE-Seq IBIS, you will need a local copy of its repository. Different
-releases can be [found here](https://github.com/enormandeau/guideseq_ibis/tags).
+To use GUIDE-Seq IBIS, you will need a local copy of its repository. 
+[You can find different releases here](https://github.com/enormandeau/guideseq_ibis/tags).
 It is recommended to always use the latest release or even the development
 version. You can either download an archive of the latest release at the above
 link or get the latest commit (recommended) with the following git command:
@@ -33,8 +33,7 @@ git clone https://github.com/enormandeau/guideseq_ibis
 
 ### Dependencies
 
-To run GUIDE-Seq IBIS, you will also need to have the following programs installed
-on your computer.
+GUIDE-Seq IBIS depends on the following programs:
 
 - GUIDE-Seq IBIS will only work on GNU Linux or OSX
 - bash 4+
@@ -48,7 +47,8 @@ on your computer.
 
 - Install the dependencies
 - Download a copy of the GUIDE-Seq IBIS repository
-- Get reference genome (ideally named `genome.fasta` in folder `03_genome`)
+- Get reference genome
+  (see sub-section `2. Download and index human genome` of the `Test dataset` section.)
 - Index the genome, eg. with `bwa index genome.fasta`
 - Add your paired-end GUIDE-Seq data to `04_data`
 - Modify the parameters in `02_infos/guideseq_ibis_config.sh` for your run
