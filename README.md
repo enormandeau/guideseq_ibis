@@ -154,7 +154,7 @@ If you have git and the GUIDE-Seq IBIS dependencies installed, the following
 commands will download the repository and the test data and put them in the
 appropriate folder.
 
-### Download GUIDE-Seq IBIS and the test dataset
+1. Download GUIDE-Seq IBIS and the test dataset
 
 ```bash
 git clone https://github.com/enormandeau/guideseq_ibis
@@ -164,23 +164,32 @@ cp guideseq_ibis_test_dataset/04_data/* guideseq_ibis/04_data
 cd guideseq_ibis
 ```
 
-### Download and index human genome
-
-1. [Download the genome from NCBI](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.26/)
-1. Decompress the archive
-1. Decompress the genome fasta file
-1. Rename it to `genome.fasta` and put it `guideseq_ibis/03_genome`
-1. Index the genome (will take a while):
+2. Download and index human genome
 
 ```
+# Move to genome folder
 cd 03_genome
+
+# Get genome in archive
+curl -OJX GET "https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_000001405.40/download?include_annotation_type=GENOME_FASTA&filename=human_genome.zip" -H "Accept: application/zip"
+
+# Extract it
+unzip human_genome.zip
+
+# Copy the assembly file
+cp -l ncbi_dataset/data/GCF_000001405.40/GCF_000001405.40_GRCh38.p14_genomic.fna genome.fasta
+
+# Index it
 bwa index genome.fasta
+
+# Move up to the main guideseq_ibis folder
 cd ..
 ```
 
-### Run the analysis
+3. Run the analysis
 
 ```bash
+# Run main analysis
 ./guideseq_ibis 02_info/guideseq_ibis_config.sh
 
 # Annotation of the targets and off-targets
