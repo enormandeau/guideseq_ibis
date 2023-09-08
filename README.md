@@ -1,4 +1,4 @@
-# GUIDE-seq IBIS v0.1.0
+# GUIDE-Seq IBIS v0.1.0
 
 ## TODO
 
@@ -9,28 +9,28 @@
 
 ## Description
 
-GUIDE-seq IBIS is used to validate CRISPR-Cas guide designs. In analyzes data
+GUIDE-Seq IBIS is used to validate CRISPR-Cas guide designs. In analyzes data
 generated with guideseq experiments as modified by the [IBIS Genomic Analysis
 Plateform](https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/).
 
 Both the lab protocol and analysis pipeline were inspired by previous work
 (https://github.com/tsailabSJ/guideseq)[https://github.com/tsailabSJ/guideseq],
-although GUIDE-seq IBIS has been completely re-written to accomodate the
+although GUIDE-Seq IBIS has been completely re-written to accomodate the
 protocol changes.
 
-- Lab protocol: (GUIDE-seq enables genome-wide profiling of off-target cleavage
+- Lab protocol: (GUIDE-Seq enables genome-wide profiling of off-target cleavage
 by CRISPR-Cas nucleases)[https://pubmed.ncbi.nlm.nih.gov/25513782/]
-- GUIDE-seq IBIS repository on GitHub:
+- GUIDE-Seq IBIS repository on GitHub:
 [https://github.com/enormandeau/guideseq_ibis](https://github.com/enormandeau/guideseq_ibis)
 
 
 ## Citation
 
-GUIDE-seq IBIS is described in ...
+GUIDE-Seq IBIS is described in ...
 
 ## Installation
 
-To use GUIDE-seq IBIS, you will need a local copy of its repository. Different
+To use GUIDE-Seq IBIS, you will need a local copy of its repository. Different
 releases can be [found here](https://github.com/enormandeau/guideseq_ibis/tags).
 It is recommended to always use the latest release or even the development
 version. You can either download an archive of the latest release at the above
@@ -42,10 +42,10 @@ git clone https://github.com/enormandeau/guideseq_ibis
 
 ### Dependencies
 
-To run GUIDE-seq IBIS, you will also need to have the following programs installed
+To run GUIDE-Seq IBIS, you will also need to have the following programs installed
 on your computer.
 
-- GUIDE-seq IBIS will only work on GNU Linux or OSX
+- GUIDE-Seq IBIS will only work on GNU Linux or OSX
 - bash 4+
 - python 3.7+ (you can use miniconda3 to install python)
 - java (ubuntu/mint: `sudo apt-get install default-jre`)
@@ -56,12 +56,12 @@ on your computer.
 ### Preparation
 
 - Install the dependencies
-- Download a copy of the GUIDE-seq IBIS repository
+- Download a copy of the GUIDE-Seq IBIS repository
 - Get reference genome (ideally named `genome.fasta` in folder `03_genome`)
 - Index the genome, eg. with `bwa index genome.fasta`
-- Add your paired-end GUIDE-seq data to `04_data`
+- Add your paired-end GUIDE-Seq data to `04_data`
 - Modify the parameters in `02_info/guideseq_ibis_config.sh` for your run
-- Launch GUIDE-seq IBIS
+- Launch GUIDE-Seq IBIS
 
 ## Overview of analyses
 
@@ -90,9 +90,9 @@ file as an argument, like this:
 
 ### Running on the test dataset
 
-If you want to test GUIDE-seq IBIS, jump straight to the `Test dataset` section
+If you want to test GUIDE-Seq IBIS, jump straight to the `Test dataset` section
 at the end of this file. Read through the README after to better understand
-GUIDE-seq IBIS and its outputs.
+GUIDE-Seq IBIS and its outputs.
 
 ### Preparing samples
 
@@ -100,9 +100,9 @@ Copy your paired-end sample files in the `04_data` folder. You need one pair of
 files per sample. The sequences in these files must contain the sequences of
 the primers that you used during the PCR.
 
-**NOTE:** GUIDE-seq IBIS does not demultiplex reads. Depending on the format in
+**NOTE:** GUIDE-Seq IBIS does not demultiplex reads. Depending on the format in
 which you received your sequences from the sequencing facility, you may have to
-proceed to demultiplexing before you can use GUIDE-seq IBIS.
+proceed to demultiplexing before you can use GUIDE-Seq IBIS.
 
 **IMPORTANT:** The file names must follow this format:
 
@@ -147,31 +147,49 @@ contain a timestamp with the time of the run:
 
 A test dataset is available as a [sister repository on
 GitHub](https://github.com/enormandeau/guideseq_ibis_test_dataset). It is
-composed of ####
+composed of the first 250,000 reads from the samples used in the paper from
+the `Citation` section near the top of this page.
 
-If you have git and the GUIDE-seq IBIS dependencies installed, the following
+If you have git and the GUIDE-Seq IBIS dependencies installed, the following
 commands will download the repository and the test data and put them in the
 appropriate folder.
 
-# TODO Add infos to download and index human genome
-
-# TODO Replace all of this by `./01_scripts/util/run_test.sh` 
+### Download GUIDE-Seq IBIS and the test dataset
 
 ```bash
 git clone https://github.com/enormandeau/guideseq_ibis
 git clone https://github.com/enormandeau/guideseq_ibis_test_dataset
-cp guideseq_ibis_test_dataset/04_data/* guideseq_ibis/04_data/
+cp guideseq_ibis_test_dataset/02_infos/* guideseq_ibis/02_infos
+cp guideseq_ibis_test_dataset/04_data/* guideseq_ibis/04_data
+cd guideseq_ibis
 ```
 
-To run the analysis, move to the `guideseq_ibis` folder and launch:
+### Download and index human genome
+
+1. [Download the genome from NCBI](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.26/)
+1. Decompress the archive
+1. Decompress the genome fasta file
+1. Rename it to `genome.fasta` and put it `guideseq_ibis/03_genome`
+1. Index the genome (will take a while):
+
+```
+cd 03_genome
+bwa index genome.fasta
+cd ..
+```
+
+### Run the analysis
 
 ```bash
-cd guideseq_ibis
 ./guideseq_ibis 02_info/guideseq_ibis_config.sh
+
+# Annotation of the targets and off-targets
+./01_scripts/06_annotate_hits.py guideseq_ibis_report.tsv guide_info_per_sample.tsv \
+    03_genome/genome.fasta guideseq_ibis_report_annotated.tsv
 ```
 
 ## License
 
 CC share-alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">GUIDE-seq IBIS</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Eric Normandeau</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">GUIDE-Seq IBIS</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Eric Normandeau</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
