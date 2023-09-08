@@ -10,23 +10,19 @@
 ## Description
 
 GUIDE-Seq IBIS is used to validate CRISPR-Cas guide designs. In analyzes data
-generated with guideseq experiments as modified by the [IBIS Genomic Analysis
+generated with GUIDE-Seq experiments, as modified by the [IBIS Genomic Analysis
 Plateform](https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/).
-
-Both the lab protocol and analysis pipeline were inspired by previous work
-(https://github.com/tsailabSJ/guideseq)[https://github.com/tsailabSJ/guideseq],
-although GUIDE-Seq IBIS has been completely re-written to accomodate the
-protocol changes.
-
-- Lab protocol: (GUIDE-Seq enables genome-wide profiling of off-target cleavage
-by CRISPR-Cas nucleases)[https://pubmed.ncbi.nlm.nih.gov/25513782/]
-- GUIDE-Seq IBIS repository on GitHub:
-[https://github.com/enormandeau/guideseq_ibis](https://github.com/enormandeau/guideseq_ibis)
-
 
 ## Citation
 
-GUIDE-Seq IBIS is described in ...
+The new GUIDE-Seq protocol and analysis pipeline, GUIDE-Seq IBIS, are described in ...
+
+## Inspiration from previous work
+
+Both the lab protocol and analysis pipeline were inspired by previous work.
+
+- [Original lab protocol](https://github.com/tsailabSJ/guideseq)
+- [Original pipeline](https://pubmed.ncbi.nlm.nih.gov/25513782/)
 
 ## Installation
 
