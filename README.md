@@ -59,7 +59,7 @@ on your computer.
 - Get reference genome (ideally named `genome.fasta` in folder `03_genome`)
 - Index the genome, eg. with `bwa index genome.fasta`
 - Add your paired-end GUIDE-Seq data to `04_data`
-- Modify the parameters in `02_info/guideseq_ibis_config.sh` for your run
+- Modify the parameters in `02_infos/guideseq_ibis_config.sh` for your run
 - Launch GUIDE-Seq IBIS
 
 ## Overview of analyses
@@ -76,7 +76,7 @@ During the analyses, the following steps are performed:
 
 ### Configuration file
 
-Modify the parameters in `02_info/guideseq_ibis_config.sh` as needed.
+Modify the parameters in `02_infos/guideseq_ibis_config.sh` as needed.
 
 ### Launching the analysis
 
@@ -84,7 +84,7 @@ Launch the `guideseq_ibis` executable and pass the name of your configuration
 file as an argument, like this:
 
 ```bash
-./guideseq_ibis 02_info/guideseq_ibis_config.sh
+./guideseq_ibis 02_infos/guideseq_ibis_config.sh
 ```
 
 ### Running on the test dataset
@@ -188,6 +188,8 @@ cd ..
 3. Run the analysis
 
 ```bash
+# Modify the number of used CPUs in guideseq_ibis_config.sh if needed (default=40)
+
 # Run main analysis
 ./guideseq_ibis 02_info/guideseq_ibis_config.sh
 
