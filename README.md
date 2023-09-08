@@ -5,17 +5,20 @@
 - Create test dataset (from the big dataset to come for the article, including annotation infos)
 - Recommendation for `MIN_COVERAGE` parameter
 - Modify `00_validate_project.sh`
-- Bump to v1.0.0 before submission
+- Add submission link
+- Bump to v1.0.0
 
 ## Description
 
-GUIDE-Seq IBIS is used to validate CRISPR-Cas guide designs. In analyzes data
-generated with GUIDE-Seq experiments, as modified by the [IBIS Genomic Analysis
+GUIDE-Seq IBIS is used to validate CRISPR-Cas guide designs. It analyzes data
+generated with an improved GUIDE-Seq protocol, as modified by the [IBIS Genomic Analysis
 Plateform](https://www.ibis.ulaval.ca/en/services-2/genomic-analysis-platform/).
 
 ## Citation
 
-The new GUIDE-Seq protocol and analysis pipeline, GUIDE-Seq IBIS, are described in ...
+The new GUIDE-Seq protocol and analysis pipeline, GUIDE-Seq IBIS, are described in:
+
+...
 
 ## Inspiration from previous work
 
@@ -175,7 +178,7 @@ unzip human_genome.zip
 # Copy the assembly file
 cp -l ncbi_dataset/data/GCF_000001405.40/GCF_000001405.40_GRCh38.p14_genomic.fna genome.fasta
 
-# Index it
+# Index it (can take from 1 to 2 hours)
 bwa index genome.fasta
 
 # Move up to the main guideseq_ibis folder
