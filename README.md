@@ -1,11 +1,5 @@
 # GUIDE-Seq IBIS v0.9.0
 
-## TODO
-
-- Add submission link
-- Bump to v1.0.0
-- Modify `00_validate_project.sh`
-
 ## Description
 
 GUIDE-Seq IBIS is used to validate CRISPR-Cas guide designs. It analyzes data
